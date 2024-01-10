@@ -3,6 +3,7 @@ import connectDB from "./db/index.js";
 import { app } from "./app.js";
 import nodeConnect from "./db/nodeConnect.js";
 import mongodb from "mongodb";
+import userRoutes from "./routes/userRoutes.js";
 dotenv.config({
   path: "./env",
 });
@@ -16,6 +17,7 @@ connectDB()
   .catch((err) => {
     console.log("mongo db connection failed", err);
   });
+app.use("/api/user", userRoutes);
 app.get("/", async (req, res) => {
   let data = await nodeConnect();
   let dataq = await data.find().toArray();
